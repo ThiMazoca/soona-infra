@@ -1,0 +1,36 @@
+name: Terraform Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  terraform:
+    name: Terraform Format, Validate, Plan
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: environments/dev
+
+    steps:
+      - name: 🔄 Checkout do código
+        uses: actions/checkout@v3
+
+      - name: ⚙️ Instalar Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.7
+
+      - name: 📦 Inicializar Terraform
+        run: terraform init
+
+      - name: 🧹 Verificar formatação
+        run: terraform fmt -check -recursive
+
+      - name: ✅ Validar configuração
+        run: terraform validate
+
+      - name: 📝 Gerar plano de execução
+        run: terraform plan -var-file="terraform.tfvars"

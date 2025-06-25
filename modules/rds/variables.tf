@@ -1,10 +1,14 @@
 variable "db_name" {
-  type = string
+  type    = string
+  default = "soona_db"
 }
+
 variable "db_username" {
-  type = string
+  type    = string
+  default = "admin"
 }
+
 variable "db_password" {
-  type = string
-  sensitive = true
+  type    = string
+  default = "supersecurepassword"
 }

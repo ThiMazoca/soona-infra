@@ -1,6 +1,7 @@
 resource "aws_ecs_cluster" "main" {
   name = "soona-cluster"
 }
+
 resource "aws_ecs_task_definition" "app" {
   family                   = "app-task"
   requires_compatibilities = ["FARGATE"]
@@ -23,6 +24,7 @@ resource "aws_ecs_task_definition" "app" {
     }
   }])
 }
+
 resource "aws_ecs_service" "app" {
   name            = "app-service"
   cluster         = aws_ecs_cluster.main.id
